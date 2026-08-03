@@ -36,7 +36,6 @@ internal class Openssl3Digest(
             reset()
         }
 
-        @OptIn(UnsafeNumber::class)
         override fun update(source: ByteArray, startIndex: Int, endIndex: Int) {
             checkBounds(source.size, startIndex, endIndex)
 

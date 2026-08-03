@@ -28,14 +28,12 @@ internal abstract class EvpMac(
         private val key: ByteArray,
         private val context: Resource<CPointer<EVP_MAC_CTX>>,
     ) : SignFunction, VerifyFunction, SafeCloseable(SafeCloseAction(context, AutoCloseable::close)) {
-        @OptIn(UnsafeNumber::class)
         private val macSize get() = EVP_MAC_CTX_get_mac_size(context.access()).convert<Int>()
 
         init {
             reset()
         }
 
-        @OptIn(UnsafeNumber::class)
         override fun update(source: ByteArray, startIndex: Int, endIndex: Int) {
             checkBounds(source.size, startIndex, endIndex)
             val context = context.access()
@@ -52,7 +50,6 @@ internal abstract class EvpMac(
             }
         }
 
-        @OptIn(UnsafeNumber::class)
         override fun signIntoByteArray(destination: ByteArray, destinationOffset: Int): Int {
             val context = context.access()
             checkBounds(destination.size, destinationOffset, destinationOffset + macSize)
@@ -86,7 +83,6 @@ internal abstract class EvpMac(
             check(tryVerify(signature, startIndex, endIndex)) { "Invalid signature" }
         }
 
-        @OptIn(UnsafeNumber::class)
         override fun reset(): Unit = memScoped {
             val context = context.access()
             key.usePinned {

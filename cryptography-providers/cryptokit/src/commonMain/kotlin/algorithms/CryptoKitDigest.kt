@@ -13,7 +13,6 @@ import dev.whyoleg.cryptography.providers.cryptokit.operations.*
 import kotlinx.cinterop.*
 import platform.Foundation.*
 
-@OptIn(UnsafeNumber::class)
 internal class CryptoKitDigest(
     override val id: CryptographyAlgorithmId<Digest>,
     private val algorithm: DwcHashAlgorithm,
@@ -22,7 +21,6 @@ internal class CryptoKitDigest(
     override fun createHashFunction(): HashFunction = CryptoKitHashFunction(algorithm)
 }
 
-@OptIn(UnsafeNumber::class)
 private class CryptoKitHashFunction(
     algorithm: DwcHashAlgorithm,
 ) : HashBasedFunction(algorithm), HashFunction {

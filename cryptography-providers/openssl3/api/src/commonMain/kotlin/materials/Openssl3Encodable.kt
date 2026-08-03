@@ -58,7 +58,6 @@ internal abstract class Openssl3Encodable<F : EncodingFormat>(
                 propquery = null
             )
         )
-        @OptIn(UnsafeNumber::class)
         try {
             val pdataLenVar = alloc<size_tVar>()
             val pdataVar = alloc<CPointerVar<UByteVar>>()

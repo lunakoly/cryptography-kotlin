@@ -13,7 +13,6 @@ internal fun <T : Any> checkError(result: T?): T {
     fail(0)
 }
 
-@OptIn(UnsafeNumber::class)
 internal fun checkError(result: size_t): size_t {
     if (result > 0.convert()) return result
     fail(result.convert())
@@ -25,7 +24,6 @@ internal fun checkError(result: Int): Int {
     fail(result)
 }
 
-@OptIn(UnsafeNumber::class)
 private fun fail(result: Int): Nothing {
     val message = buildString {
         var code = ERR_get_error()

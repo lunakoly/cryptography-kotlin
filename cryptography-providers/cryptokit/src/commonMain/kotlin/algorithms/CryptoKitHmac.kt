@@ -14,7 +14,6 @@ import kotlinx.cinterop.*
 import platform.CoreCrypto.*
 import platform.Foundation.*
 
-@OptIn(UnsafeNumber::class)
 internal object CryptoKitHmac : BaseHmac() {
     override fun blockSize(digest: CryptographyAlgorithmId<Digest>): Int = when (digest) {
         MD5    -> CC_MD5_BLOCK_BYTES
@@ -55,7 +54,6 @@ internal object CryptoKitHmac : BaseHmac() {
     }
 }
 
-@OptIn(UnsafeNumber::class)
 private class HmacSignature(
     private val key: NSData,
     private val algorithm: DwcHashAlgorithm,
@@ -71,7 +69,6 @@ private class HmacSignature(
     override fun createVerifyFunction(): VerifyFunction = createFunction()
 }
 
-@OptIn(UnsafeNumber::class)
 private class HmacFunction(
     private val key: NSData,
     private val algorithm: DwcHashAlgorithm,
@@ -81,7 +78,6 @@ private class HmacFunction(
     private val function: DwcHmacFunction
         get() = _function ?: error("Function is closed")
 
-    @OptIn(UnsafeNumber::class)
     override fun update(source: ByteArray, startIndex: Int, endIndex: Int) {
         checkBounds(source.size, startIndex, endIndex)
 

@@ -11,7 +11,6 @@ import platform.CoreCrypto.*
 import platform.posix.*
 
 @Suppress("FunctionName")
-@OptIn(UnsafeNumber::class)
 internal fun CCCipherFunction(
     algorithm: CCAlgorithm,
     mode: CCMode,
@@ -54,7 +53,6 @@ internal fun CCCipherFunction(
     return CCCipherFunction(resource, blockSize, validateFullInputSize)
 }
 
-@OptIn(UnsafeNumber::class)
 private class CCCipherFunction(
     private val cryptorRef: Resource<CCCryptorRefVar>,
     override val blockSize: Int,
@@ -128,7 +126,6 @@ private class CCCipherFunction(
     }
 }
 
-@OptIn(UnsafeNumber::class)
 internal class CCCipher(
     private val algorithm: CCAlgorithm,
     private val mode: CCMode,

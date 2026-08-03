@@ -11,7 +11,6 @@ import dev.whyoleg.cryptography.providers.openssl3.internal.cinterop.*
 import kotlinx.cinterop.*
 import platform.posix.*
 
-@OptIn(UnsafeNumber::class)
 internal class EvpPKeyCipherFunction(
     private val key: CPointer<EVP_PKEY>,
     private val encrypt: Boolean,

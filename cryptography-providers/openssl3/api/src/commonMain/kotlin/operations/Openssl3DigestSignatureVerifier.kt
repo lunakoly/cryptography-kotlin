@@ -29,7 +29,6 @@ internal abstract class Openssl3DigestSignatureVerifier(
     }
 
     // one shot
-    @OptIn(UnsafeNumber::class)
     private fun verify(data: ByteArray, signature: ByteArray): String? = memScoped {
         val context = checkError(EVP_MD_CTX_new())
         try {
@@ -84,7 +83,6 @@ internal abstract class Openssl3DigestSignatureVerifier(
             reset()
         }
 
-        @OptIn(UnsafeNumber::class)
         override fun update(source: ByteArray, startIndex: Int, endIndex: Int) {
             checkBounds(source.size, startIndex, endIndex)
 
@@ -95,7 +93,6 @@ internal abstract class Openssl3DigestSignatureVerifier(
             }
         }
 
-        @OptIn(UnsafeNumber::class)
         override fun tryVerify(signature: ByteArray, startIndex: Int, endIndex: Int): Boolean {
             checkBounds(signature.size, startIndex, endIndex)
 

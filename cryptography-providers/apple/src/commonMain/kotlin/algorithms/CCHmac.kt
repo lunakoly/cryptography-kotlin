@@ -80,7 +80,6 @@ private class HmacFunction(
         reset()
     }
 
-    @OptIn(UnsafeNumber::class)
     override fun update(source: ByteArray, startIndex: Int, endIndex: Int) {
         checkBounds(source.size, startIndex, endIndex)
 
@@ -116,7 +115,6 @@ private class HmacFunction(
         check(tryVerify(signature, startIndex, endIndex)) { "Invalid signature" }
     }
 
-    @OptIn(UnsafeNumber::class)
     override fun reset() {
         val context = context.access()
         key.usePinned {

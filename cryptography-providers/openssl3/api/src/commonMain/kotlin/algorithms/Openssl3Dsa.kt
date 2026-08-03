@@ -70,7 +70,6 @@ internal object Openssl3Dsa : DSA {
     ) : Openssl3ParametersGenerator<DSA.Parameters>("DSA") {
         override fun wrapParameters(key: CPointer<EVP_PKEY>): DSA.Parameters = Openssl3DsaParameters(key)
 
-        @OptIn(UnsafeNumber::class)
         override fun MemScope.createParams(): CValuesRef<OSSL_PARAM>? = OSSL_PARAM_array(
             OSSL_PARAM_construct_uint("pbits".cstr.ptr, alloc(pBits).ptr),
             OSSL_PARAM_construct_uint("qbits".cstr.ptr, alloc(qBits).ptr),
@@ -179,7 +178,6 @@ private class DsaDigestSignatureVerifier(
     override fun MemScope.createParams(): CValuesRef<OSSL_PARAM>? = null
 }
 
-@OptIn(UnsafeNumber::class)
 private fun DSA_q_size(key: CPointer<EVP_PKEY>): Int = memScoped {
     val qVar = alloc<CPointerVar<BIGNUM>>()
     checkError(EVP_PKEY_get_bn_param(key, "q", qVar.ptr))

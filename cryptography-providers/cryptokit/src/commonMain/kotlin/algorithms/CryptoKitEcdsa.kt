@@ -17,7 +17,6 @@ import dev.whyoleg.cryptography.serialization.pem.*
 import kotlinx.cinterop.*
 import platform.Foundation.*
 
-@OptIn(UnsafeNumber::class)
 internal object CryptoKitEcdsa : ECDSA {
     override fun publicKeyDecoder(curve: EC.Curve): Decoder<EC.PublicKey.Format, ECDSA.PublicKey> {
         return PublicKeyDecoder(curve)
@@ -105,7 +104,6 @@ private class EcdsaKeyPair(
     override val publicKey: ECDSA.PublicKey,
 ) : ECDSA.KeyPair
 
-@OptIn(UnsafeNumber::class)
 private class EcdsaPublicKey(
     private val curve: EC.Curve,
     private val publicKey: DwcEcdsaPublicKey,
@@ -132,7 +130,6 @@ private class EcdsaPublicKey(
     )
 }
 
-@OptIn(UnsafeNumber::class)
 private class EcdsaPrivateKey(
     private val curve: EC.Curve,
     private val privateKey: DwcEcdsaPrivateKey,
@@ -166,7 +163,6 @@ private class EcdsaPrivateKey(
     )
 }
 
-@OptIn(UnsafeNumber::class)
 private class EcdsaSignatureGenerator(
     private val algorithm: DwcHashAlgorithm,
     private val privateKey: DwcEcdsaPrivateKey,
@@ -175,7 +171,6 @@ private class EcdsaSignatureGenerator(
     override fun createSignFunction(): SignFunction = EcdsaSignFunction(algorithm, privateKey, format)
 }
 
-@OptIn(UnsafeNumber::class)
 private class EcdsaSignatureVerifier(
     private val algorithm: DwcHashAlgorithm,
     private val publicKey: DwcEcdsaPublicKey,
@@ -184,7 +179,6 @@ private class EcdsaSignatureVerifier(
     override fun createVerifyFunction(): VerifyFunction = EcdsaVerifyFunction(algorithm, publicKey, format)
 }
 
-@OptIn(UnsafeNumber::class)
 private class EcdsaSignFunction(
     algorithm: DwcHashAlgorithm,
     private val privateKey: DwcEcdsaPrivateKey,
@@ -210,7 +204,6 @@ private class EcdsaSignFunction(
     }
 }
 
-@OptIn(UnsafeNumber::class)
 private class EcdsaVerifyFunction(
     algorithm: DwcHashAlgorithm,
     private val publicKey: DwcEcdsaPublicKey,

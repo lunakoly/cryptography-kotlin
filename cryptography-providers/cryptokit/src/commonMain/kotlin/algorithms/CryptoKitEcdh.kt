@@ -14,7 +14,6 @@ import dev.whyoleg.cryptography.providers.cryptokit.internal.swift.DwcCryptoKitI
 import dev.whyoleg.cryptography.serialization.pem.*
 import kotlinx.cinterop.*
 
-@OptIn(UnsafeNumber::class)
 internal object CryptoKitEcdh : ECDH {
     override fun publicKeyDecoder(curve: EC.Curve): Decoder<EC.PublicKey.Format, ECDH.PublicKey> {
         return PublicKeyDecoder(curve)
@@ -102,7 +101,6 @@ private class EcdhKeyPair(
     override val publicKey: ECDH.PublicKey,
 ) : ECDH.KeyPair
 
-@OptIn(UnsafeNumber::class)
 private class EcdhPublicKey(
     private val curve: EC.Curve,
     val publicKey: DwcEcdhPublicKey,
@@ -127,7 +125,6 @@ private class EcdhPublicKey(
     }
 }
 
-@OptIn(UnsafeNumber::class)
 private class EcdhPrivateKey(
     private val curve: EC.Curve,
     val privateKey: DwcEcdhPrivateKey,
@@ -159,7 +156,6 @@ private class EcdhPrivateKey(
     }
 }
 
-@OptIn(UnsafeNumber::class)
 private fun deriveSecret(
     privateKey: DwcEcdhPrivateKey,
     publicKey: DwcEcdhPublicKey,

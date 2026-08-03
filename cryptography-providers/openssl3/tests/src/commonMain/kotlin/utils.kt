@@ -19,7 +19,6 @@ internal fun checkError(result: Int): Int {
     fail()
 }
 
-@OptIn(UnsafeNumber::class)
 private fun fail(): Nothing {
     val code = ERR_get_error()
     println(code)

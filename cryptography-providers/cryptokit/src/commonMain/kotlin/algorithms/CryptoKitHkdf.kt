@@ -12,7 +12,6 @@ import dev.whyoleg.cryptography.providers.cryptokit.internal.*
 import dev.whyoleg.cryptography.providers.cryptokit.internal.swift.DwcCryptoKitInterop.*
 import kotlinx.cinterop.*
 
-@OptIn(UnsafeNumber::class)
 internal object CryptoKitHkdf : HKDF {
     override fun secretDerivation(
         digest: CryptographyAlgorithmId<Digest>,
@@ -27,7 +26,6 @@ internal object CryptoKitHkdf : HKDF {
     )
 }
 
-@OptIn(UnsafeNumber::class)
 private class HkdfSecretDerivation(
     private val algorithm: DwcHashAlgorithm,
     private val outputSize: BinarySize,

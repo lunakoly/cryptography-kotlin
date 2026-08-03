@@ -50,7 +50,6 @@ internal abstract class Openssl3Decoder<F : EncodingFormat, K>(
                 propquery = null
             )
         )
-        @OptIn(UnsafeNumber::class)
         try {
             val pdataLenVar = alloc(bytes.size.convert<size_t>())
             val pdataVar = alloc<CPointerVar<UByteVar>> { value = allocArrayOf(bytes).reinterpret() }

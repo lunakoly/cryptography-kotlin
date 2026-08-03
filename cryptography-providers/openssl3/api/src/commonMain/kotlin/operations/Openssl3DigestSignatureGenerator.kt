@@ -30,7 +30,6 @@ internal abstract class Openssl3DigestSignatureGenerator(
     }
 
     // one shot
-    @OptIn(UnsafeNumber::class)
     private fun sign(data: ByteArray): ByteArray = memScoped {
         val context = checkError(EVP_MD_CTX_new())
         try {
@@ -70,7 +69,6 @@ internal abstract class Openssl3DigestSignatureGenerator(
             reset()
         }
 
-        @OptIn(UnsafeNumber::class)
         override fun update(source: ByteArray, startIndex: Int, endIndex: Int) {
             checkBounds(source.size, startIndex, endIndex)
 
@@ -88,7 +86,6 @@ internal abstract class Openssl3DigestSignatureGenerator(
             return signature.size
         }
 
-        @OptIn(UnsafeNumber::class)
         override fun signToByteArray(): ByteArray = memScoped {
             val context = context.access()
             val siglen = alloc<size_tVar>()

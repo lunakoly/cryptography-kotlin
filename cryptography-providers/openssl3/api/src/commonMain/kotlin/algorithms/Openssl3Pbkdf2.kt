@@ -39,7 +39,6 @@ private class Openssl3Pbkdf2SecretDerivation(
     @OptIn(ExperimentalNativeApi::class)
     private val cleaner = createCleaner(kdf, ::EVP_KDF_free)
 
-    @OptIn(UnsafeNumber::class)
     override fun deriveSecretToByteArrayBlocking(input: ByteArray): ByteArray = memScoped {
         val context = checkError(EVP_KDF_CTX_new(kdf))
         try {

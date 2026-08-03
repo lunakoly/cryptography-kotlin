@@ -46,7 +46,6 @@ private class RsaRawEncryptor(
     @OptIn(ExperimentalNativeApi::class)
     private val cleaner = publicKey.upRef().cleaner()
 
-    @OptIn(UnsafeNumber::class)
     override fun createEncryptFunction(): CipherFunction {
         return EvpPKeyCipherFunction(publicKey, encrypt = true) {
             OSSL_PARAM_array(
@@ -62,7 +61,6 @@ private class RsaRawDecryptor(
     @OptIn(ExperimentalNativeApi::class)
     private val cleaner = privateKey.upRef().cleaner()
 
-    @OptIn(UnsafeNumber::class)
     override fun createDecryptFunction(): CipherFunction {
         return EvpPKeyCipherFunction(privateKey, encrypt = false) {
             OSSL_PARAM_array(

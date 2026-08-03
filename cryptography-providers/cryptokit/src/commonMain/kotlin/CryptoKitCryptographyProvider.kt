@@ -14,7 +14,6 @@ private val defaultProvider = lazy { CryptoKitCryptographyProvider }
 
 public val CryptographyProvider.Companion.CryptoKit: CryptographyProvider by defaultProvider
 
-@OptIn(UnsafeNumber::class)
 internal object CryptoKitCryptographyProvider : CryptographyProvider() {
     override val name: String get() = "CryptoKit"
 

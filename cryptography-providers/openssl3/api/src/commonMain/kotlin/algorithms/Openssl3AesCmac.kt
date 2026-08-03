@@ -42,7 +42,6 @@ private class AesCmacSignature(
     private val algorithm: String,
     private val key: ByteArray,
 ) : EvpMac(Openssl3AesCmac.mac, key) {
-    @OptIn(UnsafeNumber::class)
     override fun MemScope.createParams(): CValuesRef<OSSL_PARAM>? = OSSL_PARAM_array(
         OSSL_PARAM_construct_utf8_string("cipher".cstr.ptr, algorithm.cstr.ptr, 0.convert())
     )

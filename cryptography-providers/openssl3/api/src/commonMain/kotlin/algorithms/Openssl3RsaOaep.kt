@@ -50,7 +50,6 @@ private class RsaOaepEncryptor(
     @OptIn(ExperimentalNativeApi::class)
     private val cleaner = publicKey.upRef().cleaner()
 
-    @OptIn(UnsafeNumber::class)
     override fun createEncryptFunction(associatedData: ByteArray?): CipherFunction {
         return EvpPKeyCipherFunction(publicKey, encrypt = true) {
             OSSL_PARAM_array(
@@ -69,7 +68,6 @@ private class RsaOaepDecryptor(
     @OptIn(ExperimentalNativeApi::class)
     private val cleaner = privateKey.upRef().cleaner()
 
-    @OptIn(UnsafeNumber::class)
     override fun createDecryptFunction(associatedData: ByteArray?): CipherFunction {
         return EvpPKeyCipherFunction(privateKey, encrypt = false) {
             OSSL_PARAM_array(

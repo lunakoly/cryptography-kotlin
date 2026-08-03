@@ -64,7 +64,6 @@ private class RsaPssSignatureGenerator(
     hashAlgorithm: String,
     private val saltLengthBytes: Int,
 ) : Openssl3DigestSignatureGenerator(privateKey, hashAlgorithm) {
-    @OptIn(UnsafeNumber::class)
     override fun MemScope.createParams(): CValuesRef<OSSL_PARAM>? = OSSL_PARAM_array(
         OSSL_PARAM_construct_utf8_string("pad-mode".cstr.ptr, "pss".cstr.ptr, 0.convert()),
         OSSL_PARAM_construct_int("saltlen".cstr.ptr, alloc(saltLengthBytes).ptr),
@@ -76,7 +75,6 @@ private class RsaPssSignatureVerifier(
     hashAlgorithm: String,
     private val saltLengthBytes: Int,
 ) : Openssl3DigestSignatureVerifier(publicKey, hashAlgorithm) {
-    @OptIn(UnsafeNumber::class)
     override fun MemScope.createParams(): CValuesRef<OSSL_PARAM>? = OSSL_PARAM_array(
         OSSL_PARAM_construct_utf8_string("pad-mode".cstr.ptr, "pss".cstr.ptr, 0.convert()),
         OSSL_PARAM_construct_int("saltlen".cstr.ptr, alloc(saltLengthBytes).ptr),

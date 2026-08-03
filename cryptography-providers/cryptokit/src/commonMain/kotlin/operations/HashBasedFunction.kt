@@ -9,7 +9,6 @@ import dev.whyoleg.cryptography.providers.base.*
 import dev.whyoleg.cryptography.providers.cryptokit.internal.swift.DwcCryptoKitInterop.*
 import kotlinx.cinterop.*
 
-@OptIn(UnsafeNumber::class)
 internal abstract class HashBasedFunction(
     private val algorithm: DwcHashAlgorithm,
 ) : UpdateFunction {

@@ -41,7 +41,6 @@ internal object Openssl3AesGcm : AES.GCM, BaseAes<AES.GCM.Key>() {
             tagSize = tabSizeBytes,
             implicitIvSize = 12
         ) {
-            @OptIn(UnsafeNumber::class)
             override fun MemScope.createParams(ivSize: Int): CValuesRef<OSSL_PARAM>? = OSSL_PARAM_array(
                 OSSL_PARAM_construct_size_t("ivlen".cstr.ptr, alloc(ivSize.convert<size_t>()).ptr),
             )

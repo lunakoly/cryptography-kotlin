@@ -59,7 +59,6 @@ internal abstract class Openssl3Ec<PublicK : EC.PublicKey, PrivateK : EC.Private
             return wrapPublicKey(curve, key)
         }
 
-        @OptIn(UnsafeNumber::class)
         private fun decodePublicRawKey(curve: EC.Curve, input: ByteArray): CPointer<EVP_PKEY> = fromParameters {
             OSSL_PARAM_array(
                 OSSL_PARAM_construct_utf8_string("group".cstr.ptr, curve.name.cstr.ptr, 0.convert()),
@@ -127,7 +126,6 @@ internal abstract class Openssl3Ec<PublicK : EC.PublicKey, PrivateK : EC.Private
     private inner class EcKeyGenerator(
         private val curve: EC.Curve,
     ) : Openssl3KeyPairGenerator<KP>("EC") {
-        @OptIn(UnsafeNumber::class)
         override fun MemScope.createParams(): CValuesRef<OSSL_PARAM>? = OSSL_PARAM_array(
             OSSL_PARAM_construct_utf8_string("group".cstr.ptr, curve.name.cstr.ptr, 0.convert())
         )
@@ -163,7 +161,6 @@ internal abstract class Openssl3Ec<PublicK : EC.PublicKey, PrivateK : EC.Private
             else                               -> super.encodeToByteArrayBlocking(format)
         }
 
-        @OptIn(UnsafeNumber::class)
         private fun encodePublicRawCompressedKey(key: CPointer<EVP_PKEY>): ByteArray = memScoped {
             val group = createEcGroup(EC_group_name(key))
             val point = checkError(EC_POINT_new(group))
@@ -222,7 +219,6 @@ internal abstract class Openssl3Ec<PublicK : EC.PublicKey, PrivateK : EC.Private
         }
     }
 
-    @OptIn(UnsafeNumber::class)
     private fun encodePublicRawKey(key: CPointer<EVP_PKEY>): ByteArray = memScoped {
         val outVar = alloc<size_tVar>()
         checkError(EVP_PKEY_get_octet_string_param(key, "pub", null, 0.convert(), outVar.ptr))
@@ -245,7 +241,6 @@ internal abstract class Openssl3Ec<PublicK : EC.PublicKey, PrivateK : EC.Private
         privateKey
     }
 
-    @OptIn(UnsafeNumber::class)
     private fun EC_check_key_group(key: CPointer<EVP_PKEY>, expectedCurve: EC.Curve) = memScoped {
         val expectedGroup = createEcGroup(expectedCurve.name)
         // TODO: recheck this!!!
@@ -272,7 +267,6 @@ internal abstract class Openssl3Ec<PublicK : EC.PublicKey, PrivateK : EC.Private
         }
     }
 
-    @OptIn(UnsafeNumber::class)
     private fun EC_group_name(key: CPointer<EVP_PKEY>): String = memScoped {
         val outputSize = alloc<size_tVar>()
         checkError(EVP_PKEY_get_utf8_string_param(key, "group", null, 0.convert(), outputSize.ptr))
@@ -282,7 +276,6 @@ internal abstract class Openssl3Ec<PublicK : EC.PublicKey, PrivateK : EC.Private
         groupName.toKString()
     }
 
-    @OptIn(UnsafeNumber::class)
     private fun MemScope.createEcGroup(group: String): CPointer<EC_GROUP> {
         val group = checkError(
             EC_GROUP_new_from_params(

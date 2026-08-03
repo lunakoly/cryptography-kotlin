@@ -23,7 +23,6 @@ internal fun <T : Any> swiftTry(
     }
 }
 
-@OptIn(UnsafeNumber::class)
 internal fun CryptographyAlgorithmId<Digest>?.swiftHashAlgorithm(): DwcHashAlgorithm = when (this) {
     MD5    -> DwcHashAlgorithmMd5
     SHA1   -> DwcHashAlgorithmSha1
@@ -34,7 +33,6 @@ internal fun CryptographyAlgorithmId<Digest>?.swiftHashAlgorithm(): DwcHashAlgor
     else   -> throw IllegalStateException("Unsupported hash algorithm: $this")
 }
 
-@OptIn(UnsafeNumber::class)
 internal fun EC.Curve.swiftEcCurve(): DwcEcCurve = when (this) {
     EC.Curve.P256 -> DwcEcCurveP256
     EC.Curve.P384 -> DwcEcCurveP384

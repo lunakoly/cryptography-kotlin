@@ -14,7 +14,7 @@ private object CCCryptographyRandom : AbstractRandom() {
     override fun fillBytes(array: ByteArray) {
         val size = array.size
 
-        @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
+        @OptIn(ExperimentalForeignApi::class)
         val status = array.usePinned { pinned ->
             CCRandomGenerateBytes(pinned.addressOf(0), size.convert())
         }

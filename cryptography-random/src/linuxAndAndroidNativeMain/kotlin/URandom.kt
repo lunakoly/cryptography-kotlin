@@ -14,7 +14,7 @@ internal fun createURandom(): CryptographyRandom {
 }
 
 private object URandom : LinuxRandom() {
-    @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
+    @OptIn(ExperimentalForeignApi::class)
     override fun fillBytes(pointer: CPointer<ByteVar>, size: Int): Int = read(FD.value, pointer, size.convert()).convert()
 }
 
@@ -35,7 +35,6 @@ private fun awaitURandomReady() {
             }
 
             while (true) {
-                @OptIn(UnsafeNumber::class)
                 if (poll(pollFd.ptr, 1.convert(), (-1).convert()) >= 0) break
 
                 when (errno) {

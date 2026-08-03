@@ -125,7 +125,6 @@ internal object Openssl3Dh : DH {
     ) : Openssl3ParametersGenerator<DH.Parameters>("DH") {
         override fun wrapParameters(key: CPointer<EVP_PKEY>): DH.Parameters = Openssl3DhParameters(key)
 
-        @OptIn(UnsafeNumber::class)
         override fun MemScope.createParams(): CValuesRef<OSSL_PARAM>? = OSSL_PARAM_array(
             OSSL_PARAM_construct_uint("pbits".cstr.ptr, alloc(primeSizeBits).ptr),
             privateValueLengthBits?.let { OSSL_PARAM_construct_int("priv_len".cstr.ptr, alloc(it).ptr) },

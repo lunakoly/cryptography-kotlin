@@ -35,7 +35,6 @@ internal fun CFMutableDictionaryRef?.add(key: CFTypeRef?, value: CFTypeRef?) {
 }
 
 @Suppress("FunctionName")
-@OptIn(UnsafeNumber::class)
 internal inline fun CFMutableDictionary(size: Int, block: CFMutableDictionaryRef?.() -> Unit): CFMutableDictionaryRef? {
     val dict = CFDictionaryCreateMutable(null, size.convert(), null, null)
     dict.block()

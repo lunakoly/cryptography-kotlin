@@ -10,7 +10,6 @@ import dev.whyoleg.cryptography.providers.openssl3.internal.*
 import dev.whyoleg.cryptography.providers.openssl3.internal.cinterop.*
 import kotlinx.cinterop.*
 
-@OptIn(UnsafeNumber::class)
 private fun EVP_CIPHER_CTX(
     cipher: CPointer<EVP_CIPHER>?,
     key: ByteArray,

@@ -23,7 +23,6 @@ internal abstract class Openssl3PhSignatureVerifier(
 
     override fun createVerifyFunction(): VerifyFunction = AccumulatingVerifyFunction(::verify)
 
-    @OptIn(UnsafeNumber::class)
     private fun verify(data: ByteArray, signature: ByteArray): String? = with_PKEY_CTX(publicKey) { context ->
         checkError(EVP_PKEY_verify_init_ex(context, createParams()))
 

@@ -11,7 +11,7 @@ import platform.Foundation.*
 private val EmptyNSData = NSData()
 
 @CryptographyProviderApi
-@OptIn(UnsafeNumber::class, ExperimentalForeignApi::class)
+@OptIn(ExperimentalForeignApi::class)
 public fun NSData.getIntoByteArray(
     destination: ByteArray,
     destinationOffset: Int = 0,
@@ -27,7 +27,7 @@ public fun NSData.getIntoByteArray(
 }
 
 @CryptographyProviderApi
-@OptIn(UnsafeNumber::class, ExperimentalForeignApi::class)
+@OptIn(ExperimentalForeignApi::class)
 public fun NSData.toByteArray(): ByteArray {
     if (length.convert<Int>() == 0) return EmptyByteArray
 
@@ -37,7 +37,7 @@ public fun NSData.toByteArray(): ByteArray {
 }
 
 @CryptographyProviderApi
-@OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
+@OptIn(ExperimentalForeignApi::class)
 public fun ByteArray.toNSData(): NSData {
     if (isEmpty()) return EmptyNSData
 
@@ -47,7 +47,7 @@ public fun ByteArray.toNSData(): NSData {
 }
 
 @CryptographyProviderApi
-@OptIn(UnsafeNumber::class, ExperimentalForeignApi::class)
+@OptIn(ExperimentalForeignApi::class)
 public fun <R> ByteArray.useNSData(
     startIndex: Int = 0,
     endIndex: Int = size,

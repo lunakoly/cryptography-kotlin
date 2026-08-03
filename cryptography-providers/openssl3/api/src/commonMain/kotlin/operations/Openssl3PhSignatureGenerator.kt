@@ -24,7 +24,6 @@ internal abstract class Openssl3PhSignatureGenerator(
 
     override fun createSignFunction(): SignFunction = AccumulatingSignFunction(::sign)
 
-    @OptIn(UnsafeNumber::class)
     private fun sign(data: ByteArray): ByteArray = with_PKEY_CTX(privateKey) { context ->
         checkError(EVP_PKEY_sign_init_ex(context, createParams()))
 

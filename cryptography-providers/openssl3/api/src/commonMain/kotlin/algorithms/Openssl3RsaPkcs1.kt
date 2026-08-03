@@ -46,7 +46,6 @@ private class RsaPkcs1SignatureGenerator(
     privateKey: CPointer<EVP_PKEY>,
     hashAlgorithm: String,
 ) : Openssl3DigestSignatureGenerator(privateKey, hashAlgorithm) {
-    @OptIn(UnsafeNumber::class)
     override fun MemScope.createParams(): CValuesRef<OSSL_PARAM>? = OSSL_PARAM_array(
         OSSL_PARAM_construct_utf8_string("pad-mode".cstr.ptr, "pkcs1".cstr.ptr, 0.convert()),
     )
@@ -56,7 +55,6 @@ private class RsaPkcs1SignatureVerifier(
     publicKey: CPointer<EVP_PKEY>,
     hashAlgorithm: String,
 ) : Openssl3DigestSignatureVerifier(publicKey, hashAlgorithm) {
-    @OptIn(UnsafeNumber::class)
     override fun MemScope.createParams(): CValuesRef<OSSL_PARAM>? = OSSL_PARAM_array(
         OSSL_PARAM_construct_utf8_string("pad-mode".cstr.ptr, "pkcs1".cstr.ptr, 0.convert()),
     )
@@ -68,7 +66,6 @@ private class RsaPkcs1Encryptor(
     @OptIn(ExperimentalNativeApi::class)
     private val cleaner = publicKey.upRef().cleaner()
 
-    @OptIn(UnsafeNumber::class)
     override fun createEncryptFunction(): CipherFunction {
         return EvpPKeyCipherFunction(publicKey, encrypt = true) {
             OSSL_PARAM_array(
@@ -84,7 +81,6 @@ private class RsaPkcs1Decryptor(
     @OptIn(ExperimentalNativeApi::class)
     private val cleaner = privateKey.upRef().cleaner()
 
-    @OptIn(UnsafeNumber::class)
     override fun createDecryptFunction(): CipherFunction {
         return EvpPKeyCipherFunction(privateKey, encrypt = false) {
             OSSL_PARAM_array(

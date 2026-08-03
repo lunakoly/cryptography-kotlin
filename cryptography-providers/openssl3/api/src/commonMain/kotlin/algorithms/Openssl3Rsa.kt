@@ -39,7 +39,6 @@ internal abstract class Openssl3Rsa<PublicK : RSA.PublicKey, PrivateK : RSA.Priv
             else -> super.inputStruct(format)
         }
 
-        @OptIn(UnsafeNumber::class)
         override fun decodeFromByteArrayBlocking(format: RSA.PublicKey.Format, bytes: ByteArray): PublicK = when (format) {
             RSA.PublicKey.Format.JWK -> {
                 val components = JsonWebKeys.decodeRsaPublicKey(this@Openssl3Rsa.id, digest, bytes)
@@ -73,7 +72,6 @@ internal abstract class Openssl3Rsa<PublicK : RSA.PublicKey, PrivateK : RSA.Priv
             else -> super.inputStruct(format)
         }
 
-        @OptIn(UnsafeNumber::class)
         override fun decodeFromByteArrayBlocking(format: RSA.PrivateKey.Format, bytes: ByteArray): PrivateK = when (format) {
             RSA.PrivateKey.Format.JWK -> {
                 val components = JsonWebKeys.decodeRsaPrivateKey(this@Openssl3Rsa.id, digest, bytes)
@@ -202,7 +200,6 @@ private fun getRsaBnParam(key: CPointer<EVP_PKEY>, paramName: String): ByteArray
     }
 }
 
-@OptIn(UnsafeNumber::class)
 private fun MemScope.constructRsaBnParam(
     name: String,
     value: ByteArray,

@@ -1,6 +1,6 @@
 [versions]
 
-kotlin = "2.4.0"
+kotlin = "2.5.255-SNAPSHOT"
 
 # kotlin/kotlinx
 kotlin-dokka = "2.2.0"

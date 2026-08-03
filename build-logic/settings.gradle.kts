@@ -5,6 +5,12 @@
 pluginManagement {
     includeBuild("../build-settings")
     includeBuild("../testtool")
+
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        maven("file:///Users/Nikolay.Lunyak/Documents/Projects/kotlin-worktrees/kotlin-platform-type-commonized-to-different-types/build/repo")
+    }
 }
 
 plugins {
@@ -14,6 +20,10 @@ plugins {
 dependencyResolutionManagement {
     versionCatalogs.named("libs") {
         from(files("../gradle/libs.versions.toml"))
+    }
+
+    repositories {
+        maven("file:///Users/Nikolay.Lunyak/Documents/Projects/kotlin-worktrees/kotlin-platform-type-commonized-to-different-types/build/repo")
     }
 }
 

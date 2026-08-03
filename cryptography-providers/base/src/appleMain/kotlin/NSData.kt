@@ -7,6 +7,7 @@ package dev.whyoleg.cryptography.providers.base
 import dev.whyoleg.cryptography.*
 import kotlinx.cinterop.*
 import platform.Foundation.*
+import platform.darwin.NSUInteger
 
 private val EmptyNSData = NSData()
 
@@ -16,7 +17,7 @@ public fun NSData.getIntoByteArray(
     destination: ByteArray,
     destinationOffset: Int = 0,
 ): Int {
-    val outputSize = length.convert<Int>()
+    val outputSize = length.toInt()
     if (outputSize == 0) return 0
     checkBounds(destination.size, destinationOffset, destinationOffset + outputSize)
 
@@ -29,9 +30,9 @@ public fun NSData.getIntoByteArray(
 @CryptographyProviderApi
 @OptIn(UnsafeNumber::class, ExperimentalForeignApi::class)
 public fun NSData.toByteArray(): ByteArray {
-    if (length.convert<Int>() == 0) return EmptyByteArray
+    if (length == 0.convert<NSUInteger>()) return EmptyByteArray
 
-    return ByteArray(length.convert()).also {
+    return ByteArray(length.toInt()).also {
         val _ = getIntoByteArray(it)
     }
 }

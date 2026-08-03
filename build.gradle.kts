@@ -32,3 +32,19 @@ plugins.withType<WasmNodeJsRootPlugin> {
         packageLockMismatchReport.set(LockFileMismatchReport.NONE)
     }
 }
+
+allprojects {
+    plugins.withId("org.jetbrains.kotlin.multiplatform") {
+        println("Project: $name")
+
+        extensions.configure<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension> {
+            sourceSets.configureEach {
+                dependencies {
+                    implementation("org.jetbrains.kotlin.commonizer:commonizer-support-library:2.5.255-SNAPSHOT")
+                }
+            }
+
+            compilerOptions.freeCompilerArgs.add("-Xskip-prerelease-check")
+        }
+    }
+}

@@ -39,7 +39,7 @@ internal abstract class Openssl3PhSignatureGenerator(
                     tbslen = data.size.convert()
                 )
             )
-            val signature = ByteArray(siglen.value.convert())
+            val signature = ByteArray(siglen.value.toInt())
             checkError(
                 EVP_PKEY_sign(
                     ctx = context,
@@ -49,7 +49,7 @@ internal abstract class Openssl3PhSignatureGenerator(
                     tbslen = data.size.convert()
                 )
             )
-            signature.ensureSizeExactly(siglen.value.convert())
+            signature.ensureSizeExactly(siglen.value.toInt())
         }
     }
 }

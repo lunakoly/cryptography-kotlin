@@ -57,11 +57,11 @@ abstract class LibCrypto3Test {
                     key = key.asUByteArray().refTo(0),
                     keylen = key.size.convert(),
                     params = OSSL_PARAM_array(
-                        OSSL_PARAM_construct_utf8_string("digest".cstr.ptr, hashAlgorithm.cstr.ptr, 0U)
+                        OSSL_PARAM_construct_utf8_string("digest".cstr.ptr, hashAlgorithm.cstr.ptr, 0U.convert())
                     )
                 )
             )
-            val signature = ByteArray(EVP_MAC_CTX_get_mac_size(context).convert())
+            val signature = ByteArray(EVP_MAC_CTX_get_mac_size(context).toInt())
 
             checkError(EVP_MAC_update(context, dataInput.fixEmpty().asUByteArray().refTo(0), dataInput.size.convert()))
             checkError(EVP_MAC_final(context, signature.asUByteArray().refTo(0), null, signature.size.convert()))
@@ -85,7 +85,7 @@ abstract class LibCrypto3Test {
                 checkError(
                     EVP_PKEY_CTX_set_params(
                         context, OSSL_PARAM_array(
-                            OSSL_PARAM_construct_utf8_string("group".cstr.ptr, "P-521".cstr.ptr, 0U)
+                            OSSL_PARAM_construct_utf8_string("group".cstr.ptr, "P-521".cstr.ptr, 0U.convert())
                         )
                     )
                 )
@@ -119,9 +119,9 @@ abstract class LibCrypto3Test {
 
                 val siglen = alloc<size_tVar>()
                 checkError(EVP_DigestSignFinal(context, null, siglen.ptr))
-                val signature = ByteArray(siglen.value.convert())
+                val signature = ByteArray(siglen.value.toInt())
                 checkError(EVP_DigestSignFinal(context, signature.asUByteArray().refTo(0), siglen.ptr))
-                signature.copyOf(siglen.value.convert())
+                signature.copyOf(siglen.value.toInt())
             } finally {
                 EVP_MD_CTX_free(context)
             }

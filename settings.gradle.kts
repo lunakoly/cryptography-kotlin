@@ -11,6 +11,12 @@ pluginManagement {
     // nested gradle plugins
     includeBuild("testtool")
     includeBuild("swiftinterop")
+
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        maven("file:///Users/Nikolay.Lunyak/Documents/Projects/kotlin-worktrees/kotlin-platform-type-commonized-to-different-types/build/repo")
+    }
 }
 
 plugins {
@@ -25,6 +31,10 @@ dependencyResolutionManagement {
             content { includeGroup("ckbuild.dependencies.openssl") }
             patternLayout { artifact("[revision]/[artifact].[ext]") }
         }
+        maven("file:///Users/Nikolay.Lunyak/Documents/Projects/kotlin-worktrees/kotlin-platform-type-commonized-to-different-types/build/repo")
+        mavenCentral()
+        gradlePluginPortal()
+        google()
     }
 }
 

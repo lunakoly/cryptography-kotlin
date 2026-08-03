@@ -68,7 +68,7 @@ private class CCCipherFunction(
             cryptorRef = cryptorRef.value,
             inputLength = inputSize.convert(),
             final = true
-        ).convert()
+        ).toInt()
     }
 
     override fun transformIntoByteArray(
@@ -100,7 +100,7 @@ private class CCCipherFunction(
                 }
             }
             fullInputSize += (endIndex - startIndex)
-            dataOutMoved.value.convert()
+            dataOutMoved.value.toInt()
         }
     }
 
@@ -123,7 +123,7 @@ private class CCCipherFunction(
                     )
                 )
             }
-            dataOutMoved.value.convert()
+            dataOutMoved.value.toInt()
         }
     }
 }
@@ -224,7 +224,7 @@ internal class CCCipher(
             cryptorRef = value,
             inputLength = inputLength.convert(),
             final = true
-        ).convert()
+        ).toInt()
     }
 
     private fun CCCryptorRefVar.update(
@@ -244,7 +244,7 @@ internal class CCCipher(
                 dataOutMoved = dataOutMoved.ptr
             )
         )
-        return dataOutMoved.value.convert()
+        return dataOutMoved.value.toInt()
     }
 
     private fun CCCryptorRefVar.final(
@@ -260,7 +260,7 @@ internal class CCCipher(
                 dataOutMoved = dataOutMoved.ptr
             )
         )
-        return dataOutMoved.value.convert()
+        return dataOutMoved.value.toInt()
     }
 
 }

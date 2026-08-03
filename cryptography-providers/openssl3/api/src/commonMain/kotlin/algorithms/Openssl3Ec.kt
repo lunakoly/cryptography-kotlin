@@ -173,7 +173,7 @@ internal abstract class Openssl3Ec<PublicK : EC.PublicKey, PrivateK : EC.Private
                 checkError(EC_POINT_oct2point(group, point, publicKey.safeRefToU(0), publicKey.size.convert(), null))
                 // get the size of a compressed point
                 var outputSize = checkError(EC_POINT_point2oct(group, point, POINT_CONVERSION_COMPRESSED, null, 0.convert(), null))
-                val output = ByteArray(outputSize.convert())
+                val output = ByteArray(outputSize.toInt())
                 // encode compressed point
                 outputSize = checkError(
                     EC_POINT_point2oct(
@@ -181,11 +181,11 @@ internal abstract class Openssl3Ec<PublicK : EC.PublicKey, PrivateK : EC.Private
                         p = point,
                         form = POINT_CONVERSION_COMPRESSED,
                         buf = output.safeRefToU(0),
-                        len = outputSize.convert(),
+                        len = outputSize,
                         ctx = null
                     )
                 )
-                output.ensureSizeExactly(outputSize.convert())
+                output.ensureSizeExactly(outputSize.toInt())
             } finally {
                 EC_POINT_free(point)
             }
@@ -226,9 +226,9 @@ internal abstract class Openssl3Ec<PublicK : EC.PublicKey, PrivateK : EC.Private
     private fun encodePublicRawKey(key: CPointer<EVP_PKEY>): ByteArray = memScoped {
         val outVar = alloc<size_tVar>()
         checkError(EVP_PKEY_get_octet_string_param(key, "pub", null, 0.convert(), outVar.ptr))
-        val output = ByteArray(outVar.value.convert())
+        val output = ByteArray(outVar.value.toInt())
         checkError(EVP_PKEY_get_octet_string_param(key, "pub", output.safeRefToU(0), output.size.convert(), outVar.ptr))
-        output.ensureSizeExactly(outVar.value.convert())
+        output.ensureSizeExactly(outVar.value.toInt())
     }
 
     private fun encodePrivateRawKey(key: CPointer<EVP_PKEY>): ByteArray = memScoped {

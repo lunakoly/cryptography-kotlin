@@ -52,7 +52,7 @@ internal abstract class Openssl3Decoder<F : EncodingFormat, K>(
         )
         @OptIn(UnsafeNumber::class)
         try {
-            val pdataLenVar = alloc(bytes.size.convert<size_t>())
+            val pdataLenVar = alloc<size_tVar> { value = bytes.size.convert() }
             val pdataVar = alloc<CPointerVar<UByteVar>> { value = allocArrayOf(bytes).reinterpret() }
             checkError(OSSL_DECODER_from_data(context, pdataVar.ptr, pdataLenVar.ptr))
             val pkey = checkError(pkeyVar.value)

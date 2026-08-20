@@ -44,10 +44,7 @@ internal object Openssl3AesCcm : AES.CCM, BaseAes<AES.CCM.Key>() {
             @OptIn(UnsafeNumber::class)
             override fun MemScope.createParams(ivSize: Int): CValuesRef<OSSL_PARAM>? = OSSL_PARAM_array(
                 OSSL_PARAM_construct_octet_string("tag".cstr.ptr, null, tagSize.convert()),
-                OSSL_PARAM_construct_size_t(
-                    "ivlen".cstr.ptr,
-                    alloc<size_tVar> { value = ivSize.convert() }.ptr
-                ),
+                OSSL_PARAM_construct_size_t("ivlen".cstr.ptr, alloc(ivSize.convert<size_t>()).ptr),
             )
 
             override fun MemScope.configureContext(context: CPointer<EVP_CIPHER_CTX>?, inputSize: Int) {

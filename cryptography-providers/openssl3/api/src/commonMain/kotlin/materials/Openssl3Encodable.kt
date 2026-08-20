@@ -63,7 +63,7 @@ internal abstract class Openssl3Encodable<F : EncodingFormat>(
             val pdataLenVar = alloc<size_tVar>()
             val pdataVar = alloc<CPointerVar<UByteVar>>()
             checkError(OSSL_ENCODER_to_data(context, pdataVar.ptr, pdataLenVar.ptr))
-            pdataVar.value!!.readBytes(pdataLenVar.value.toInt())
+            pdataVar.value!!.readBytes(pdataLenVar.value.convert())
         } finally {
             OSSL_ENCODER_CTX_free(context)
         }

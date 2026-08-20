@@ -15,8 +15,8 @@ internal fun <T : Any> checkError(result: T?): T {
 
 @OptIn(UnsafeNumber::class)
 internal fun checkError(result: size_t): size_t {
-    if (result > 0.convert<size_t>()) return result
-    fail(result.toInt())
+    if (result > 0.convert()) return result
+    fail(result.convert())
 }
 
 @IgnorableReturnValue // mostly used as a check if the operation is failed (e.g. 0 or 1)

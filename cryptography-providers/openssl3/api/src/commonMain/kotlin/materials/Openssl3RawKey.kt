@@ -24,7 +24,7 @@ internal fun decodeRawPrivateKey(type: Int, bytes: ByteArray): CPointer<EVP_PKEY
 internal fun encodeRawPublicKey(key: CPointer<EVP_PKEY>): ByteArray = memScoped {
     val lenVar = alloc<size_tVar>()
     checkError(EVP_PKEY_get_raw_public_key(key, null, lenVar.ptr))
-    val result = ByteArray(lenVar.value.toInt())
+    val result = ByteArray(lenVar.value.convert())
     checkError(EVP_PKEY_get_raw_public_key(key, result.refToU(0), lenVar.ptr))
     result.ensureSizeExactly(lenVar.value.toInt())
 }
@@ -33,7 +33,7 @@ internal fun encodeRawPublicKey(key: CPointer<EVP_PKEY>): ByteArray = memScoped 
 internal fun encodeRawPrivateKey(key: CPointer<EVP_PKEY>): ByteArray = memScoped {
     val lenVar = alloc<size_tVar>()
     checkError(EVP_PKEY_get_raw_private_key(key, null, lenVar.ptr))
-    val result = ByteArray(lenVar.value.toInt())
+    val result = ByteArray(lenVar.value.convert())
     checkError(EVP_PKEY_get_raw_private_key(key, result.refToU(0), lenVar.ptr))
     result.ensureSizeExactly(lenVar.value.toInt())
 }

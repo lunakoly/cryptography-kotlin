@@ -39,9 +39,9 @@ internal abstract class Openssl3DigestSignatureGenerator(
             data.usePinned {
                 val siglen = alloc<size_tVar>()
                 checkError(EVP_DigestSign(context, null, siglen.ptr, it.safeAddressOfU(0), data.size.convert()))
-                val signature = ByteArray(siglen.value.toInt())
+                val signature = ByteArray(siglen.value.convert())
                 checkError(EVP_DigestSign(context, signature.refToU(0), siglen.ptr, it.safeAddressOfU(0), data.size.convert()))
-                signature.ensureSizeExactly(siglen.value.toInt())
+                signature.ensureSizeExactly(siglen.value.convert())
             }
         } finally {
             EVP_MD_CTX_free(context)
@@ -93,9 +93,9 @@ internal abstract class Openssl3DigestSignatureGenerator(
             val context = context.access()
             val siglen = alloc<size_tVar>()
             checkError(EVP_DigestSignFinal(context, null, siglen.ptr))
-            val signature = ByteArray(siglen.value.toInt())
+            val signature = ByteArray(siglen.value.convert())
             checkError(EVP_DigestSignFinal(context, signature.refToU(0), siglen.ptr))
-            signature.ensureSizeExactly(siglen.value.toInt())
+            signature.ensureSizeExactly(siglen.value.convert())
         }
 
         override fun reset(): Unit = memScoped {

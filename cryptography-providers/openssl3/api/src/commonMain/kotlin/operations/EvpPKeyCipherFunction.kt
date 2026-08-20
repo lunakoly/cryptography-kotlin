@@ -57,7 +57,7 @@ internal class EvpPKeyCipherFunction(
                         inlen = accumulator.size.convert()
                     )
                 )
-                val output = ByteArray(outlen.value.toInt())
+                val output = ByteArray(outlen.value.convert())
                 // KT-84921
                 val _ = output.usePinned { outputPin ->
                     checkError(
@@ -70,7 +70,7 @@ internal class EvpPKeyCipherFunction(
                         )
                     )
                 }
-                output.ensureSizeExactly(outlen.value.toInt())
+                output.ensureSizeExactly(outlen.value.convert())
             }
         }
     }

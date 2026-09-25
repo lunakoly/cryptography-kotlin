@@ -13,7 +13,6 @@ import org.jetbrains.kotlin.gradle.targets.native.tasks.*
 
 plugins {
     id("ckbuild.multiplatform")
-    id("testtool.server")
 }
 
 kotlin {

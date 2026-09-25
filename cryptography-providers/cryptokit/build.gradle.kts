@@ -11,6 +11,7 @@ plugins {
     id("ckbuild.multiplatform-provider-tests")
     id("ckbuild.multiplatform-xcframework")
     id("dev.whyoleg.swiftinterop")
+    id("testtool.server")
 }
 
 description = "cryptography-kotlin Cryptokit provider"

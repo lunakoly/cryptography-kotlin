@@ -8,6 +8,7 @@ plugins {
     id("ckbuild.multiplatform-library")
     id("ckbuild.multiplatform-provider-tests")
     id("ckbuild.multiplatform-xcframework")
+    id("testtool.server")
 }
 
 description = "cryptography-kotlin OpenSSL3 provider (prebuilt) based on NativeBuilds"

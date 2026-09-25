@@ -12,6 +12,7 @@ plugins {
     id("ckbuild.multiplatform-provider-tests")
     id("ckbuild.multiplatform-xcframework")
     id("ckbuild.use-openssl")
+    id("testtool.server")
 }
 
 description = "cryptography-kotlin OpenSSL3 provider (prebuilt)"

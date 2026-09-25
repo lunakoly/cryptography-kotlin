@@ -7,6 +7,7 @@ import ckbuild.*
 plugins {
     id("ckbuild.multiplatform-library")
     id("ckbuild.multiplatform-provider-tests")
+    id("testtool.server")
 }
 
 description = "cryptography-kotlin JDK (BC) provider"

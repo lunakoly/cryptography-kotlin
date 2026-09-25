@@ -16,5 +16,4 @@ dependencies {
     implementation(libs.maven.publish.gradle.plugin)
     implementation(libs.gradle.publish.gradle.plugin)
     implementation(libs.apache.commons.compress)
-    implementation("testtool:plugin")
 }

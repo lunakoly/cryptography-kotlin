@@ -6,6 +6,7 @@ import ckbuild.*
 
 plugins {
     id("ckbuild.multiplatform-provider-tests")
+    id("testtool.server")
 }
 
 kotlin {

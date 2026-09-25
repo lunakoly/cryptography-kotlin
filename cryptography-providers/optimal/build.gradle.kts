@@ -35,7 +35,7 @@ kotlin {
                     group("cryptokitSupported") {
                         withApple()
                         excludeCompilations {
-                            (it.target as? KotlinNativeTarget)?.konanTarget == KonanTarget.WATCHOS_ARM32
+                            false
                         }
                     }
                 }
